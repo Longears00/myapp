@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Ninjas from './Ninjas'
-import AddNinja from './AddNinja'
+import Todos from './Todos'
 
 class App extends Component {
   state={
@@ -8,6 +7,10 @@ class App extends Component {
       {name:'ryu',age:25,id:1}, 
       {name:'yoshi',age:20,id:2},
       {name:'yoshi33',age:30,id:3}, 
+    ],
+    todos:[
+      {id:1,content:'some milk'},
+      {id:2,content:'play mario kart'}
     ]
   }
   addNinja = (ninja)=>{
@@ -22,12 +25,17 @@ class App extends Component {
     })
     this.setState({ninjas:ninjas})
   }
+  deleteTodo = (id)=>{
+    let todos = this.state.todos.filter(todo=>{
+      return todo.id !== id
+    })
+    this.setState({todos})
+  }
   render() {
     return (
-      <div className="App">
-        <h1>my app</h1>
-        <Ninjas deleteNinja={this.deleteNinja} ninjas={this.state.ninjas}></Ninjas>
-        <AddNinja addNinja={this.addNinja}></AddNinja>
+      <div className="todo-app container">
+        <h1 className="center blue-text">Todos</h1>
+        <Todos todos={this.state.todos} deleteTodo={this.deleteTodo}></Todos>
       </div>
     );
   }
